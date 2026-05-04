@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Services - DevFlow Freelance Web Development</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
 </head>
 <body>
     <header class="header">
@@ -102,30 +101,30 @@
         </section>
 
         <section class="gallery-section">
-            <h2>Gallery</h2>
-            <p>Click on any item to view details</p>
-            <div class="gallery">
-                <div class="gallery-item" onclick="openGallery('Website Design', 'Custom website design tailored to your business needs')">
-                    <div class="gallery-placeholder">Portfolio 1</div>
+            <h2>Our Work</h2>
+            <p>Click on any project to learn more about it</p>
+            <div class="gallery" role="list">
+                <div class="gallery-item" data-title="Website Design" data-description="Custom website design tailored to your business needs. We build from scratch using HTML, CSS and JavaScript." tabindex="0" role="listitem" aria-label="View Website Design project details">
+                    <div class="gallery-placeholder" role="img" aria-label="Screenshot of a custom website design project">Portfolio 1</div>
                     <p>Website Design</p>
                 </div>
-                <div class="gallery-item" onclick="openGallery('Responsive Design', 'Mobile-friendly responsive design that works on all devices')">
-                    <div class="gallery-placeholder">Portfolio 2</div>
+                <div class="gallery-item" data-title="Responsive Design" data-description="Mobile-friendly responsive design that works on all devices including phones, tablets and desktops." tabindex="0" role="listitem" aria-label="View Responsive Design project details">
+                    <div class="gallery-placeholder" role="img" aria-label="Screenshot of a responsive design project shown on multiple devices">Portfolio 2</div>
                     <p>Responsive Design</p>
                 </div>
-                <div class="gallery-item" onclick="openGallery('E-Commerce', 'Complete e-commerce solution with shopping cart and payment processing')">
-                    <div class="gallery-placeholder">Portfolio 3</div>
+                <div class="gallery-item" data-title="E-Commerce" data-description="Complete e-commerce solution with shopping cart, product pages and secure payment processing." tabindex="0" role="listitem" aria-label="View E-Commerce project details">
+                    <div class="gallery-placeholder" role="img" aria-label="Screenshot of an e-commerce website with product listings">Portfolio 3</div>
                     <p>E-Commerce Site</p>
                 </div>
             </div>
         </section>
 
         <!-- Gallery Modal -->
-        <div id="gallery-modal" class="modal">
-            <span class="close" onclick="closeGallery()">&times;</span>
-            <div style="text-align: center;">
+        <div id="gallery-modal" class="modal" role="dialog" aria-hidden="true" aria-labelledby="modal-title">
+            <button class="close" aria-label="Close gallery modal">&times;</button>
+            <div class="modal-content-inner">
                 <h3 id="modal-title"></h3>
-                <p id="modal-content" style="color: white; margin-top: 20px;"></p>
+                <p id="modal-description"></p>
             </div>
         </div>
     </main>
@@ -134,5 +133,6 @@
         <p>&copy; 2026 DevFlow. All rights reserved.</p>
         <p><a href="mailto:info@devflow.com">info@devflow.com</a></p>
     </footer>
+    <script src="script.js"></script>
 </body>
 </html>
