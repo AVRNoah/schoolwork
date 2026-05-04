@@ -32,7 +32,6 @@ body {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background-color: #0066cc;
 }
 
 /* Navigation */
@@ -71,24 +70,14 @@ section {
     margin-bottom: 30px;
     padding: 25px;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 section h2 {
     color: #0066cc;
-    border-bottom: 3px solid #0066cc;
-    padding-bottom: 10px;
-    margin-top: 0;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
-section h3 {
-    color: #333;
-    margin-top: 15px;
-    margin-bottom: 10px;
-}
-
-/* Home Page Intro */
+/* Intro */
 .intro {
     background-color: #e6f2ff;
     text-align: center;
@@ -103,135 +92,14 @@ section h3 {
     color: #555;
 }
 
-/* Page Intro */
-.page-intro {
-    background-color: #e6f2ff;
-    text-align: center;
-}
-
-.page-intro h2 {
-    font-size: 2em;
-}
-
-.page-intro p {
-    font-size: 1.1em;
-    color: #555;
-}
-
-/* Services Page */
-.services {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-    background-color: transparent;
-    box-shadow: none;
-    padding: 0;
-}
-
-.service-item {
-    background-color: white;
-    padding: 20px;
-    border-left: 4px solid #0066cc;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.service-item h3 {
-    color: #0066cc;
-    margin-top: 0;
-}
-
-.service-item ul {
-    margin: 15px 0 0 20px;
+/* Services List */
+.service-list {
+    margin-left: 20px;
     padding-left: 20px;
 }
 
-.service-item li {
-    margin: 8px 0;
-}
-
-.pricing-intro {
-    text-align: center;
-}
-
-/* Portfolio Page */
-.portfolio-content {
-    text-align: center;
-}
-
-.portfolio-content a {
-    color: #0066cc;
-    text-decoration: none;
-}
-
-.portfolio-content a:hover {
-    text-decoration: underline;
-}
-
-/* Contact Page */
-.contact-info {
-    background-color: #f9f9f9;
-}
-
-.info-block h3 {
-    color: #0066cc;
-    margin-top: 0;
-}
-
-.info-block p {
-    margin: 15px 0;
-    line-height: 1.8;
-}
-
-.info-block a {
-    color: #0066cc;
-    text-decoration: none;
-}
-
-.info-block a:hover {
-    text-decoration: underline;
-}
-
-/* Contact Form */
-.contact-form-section h2 {
-    margin-bottom: 20px;
-}
-
-.contact-form {
-    max-width: 600px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-}
-
-.form-group label {
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #333;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-family: Arial, sans-serif;
-    font-size: 1em;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: 2px solid #0066cc;
-    border-color: #0066cc;
-}
-
-.form-group textarea {
-    resize: vertical;
+.service-list li {
+    margin: 10px 0;
 }
 
 /* Button */
@@ -244,8 +112,6 @@ section h3 {
     font-size: 1.1em;
     display: inline-block;
     margin-top: 10px;
-    border: none;
-    cursor: pointer;
 }
 
 .button:hover {
@@ -268,55 +134,4 @@ section h3 {
 
 .footer a:hover {
     color: white;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .header h1 {
-        font-size: 1.5em;
-    }
-
-    .logo {
-        margin-bottom: 10px;
-    }
-
-    .nav {
-        width: 100%;
-        margin-top: 15px;
-    }
-
-    .nav ul {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .nav li {
-        display: block;
-        margin: 10px 0;
-    }
-
-    section {
-        padding: 15px;
-    }
-
-    section h2 {
-        font-size: 1.5em;
-    }
-
-    main {
-        margin: 15px auto;
-    }
-
-    .services {
-        grid-template-columns: 1fr;
-    }
-
-    .contact-form {
-        max-width: 100%;
-    }
 }
