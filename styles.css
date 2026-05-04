@@ -394,20 +394,24 @@ section h3 {
     padding-top: 50px;
 }
 
-.modal.show {
-    display: block;
+.modal-content-inner {
+    background-color: white;
+    max-width: 500px;
+    margin: 80px auto;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
 }
 
-.modal-image {
-    max-width: 80%;
-    max-height: 80%;
-    border-radius: 5px;
+.modal-content-inner h3 {
+    color: #0066cc;
+    margin-bottom: 15px;
+    font-size: 1.4em;
 }
 
-#modal-title {
-    color: white;
-    margin-top: 20px;
-    font-size: 1.5em;
+.modal-content-inner p {
+    color: #333;
+    line-height: 1.6;
 }
 
 .close {
@@ -417,10 +421,18 @@ section h3 {
     font-size: 30px;
     cursor: pointer;
     color: white;
+    background: none;
+    border: none;
+    padding: 5px 10px;
 }
 
 .close:hover {
     color: #0066cc;
+}
+
+.close:focus {
+    outline: 2px solid #0066cc;
+    outline-offset: 2px;
 }
 
 /* FAQ Section */
@@ -463,99 +475,17 @@ section h3 {
     margin: 0;
 }
 
-@media (max-width: 768px) {
-    .gallery {
-        grid-template-columns: 1fr;
-    }
+/* FAQ Focus State */
+.faq-question:focus {
+    outline: 2px solid #0066cc;
+    outline-offset: 2px;
 }
 
-/* Hero Section */
-.hero {
-    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-    color: white;
-    padding: 4rem 2rem;
-    text-align: center;
-    border-radius: 8px;
-    margin-bottom: 3rem;
-}
-
-.hero h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-.hero p {
-    font-size: 1.3rem;
-    opacity: 0.95;
-}
-
-/* About Section */
-.about {
-    background-color: white;
-    padding: 3rem;
-    border-radius: 8px;
-    margin-bottom: 3rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-}
-
-.about h2 {
-    color: #2c3e50;
-    margin-bottom: 1.5rem;
-    font-size: 2rem;
-}
-
-.about p {
-    margin-bottom: 1.5rem;
-    text-align: justify;
-    color: #555;
-}
-
-/* Services Section */
-.services {
-    background-color: white;
-    padding: 3rem;
-    border-radius: 8px;
-    margin-bottom: 3rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-}
-
-.services h2 {
-    color: #2c3e50;
-    margin-bottom: 2rem;
-    font-size: 2rem;
-}
-
-.services-list {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-.services-list li {
-    background-color: #ecf0f1;
-    padding: 1.5rem;
-    border-left: 4px solid #3498db;
-    border-radius: 4px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.services-list li:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.services-list strong {
-    display: block;
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
-}
-
-.services-list span {
-    display: block;
-    color: #666;
-    font-size: 0.95rem;
+/* Gallery Focus State */
+.gallery-item:focus {
+    outline: 2px solid #0066cc;
+    outline-offset: 2px;
+    border-color: #0066cc;
 }
 
 /* Why Choose Us Section */

@@ -1,111 +1,254 @@
-// Validate Form
+// Wait for page to load before running scripts
+document.addEventListener("DOMContentLoaded", function() {
+
+    // --- FORM VALIDATION ---
+    var contactForm = document.getElementById("contact-form");
+    if (contactForm) {
+        contactForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+            validateForm();
+        });
+    }
+
+    // --- FAQ SETUP ---
+    var faqButtons = document.querySelectorAll(".faq-question");
+    for (var i = 0; i < faqButtons.length; i++) {
+        faqButtons[i].addEventListener("click", function() {
+            var answerId = this.getAttribute("data-target");
+            toggleFAQ(answerId, this);
+        });
+
+        // Allow keyboard Enter and Space to toggle FAQ
+        faqButtons[i].addEventListener("keydown", function(event) {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                var answerId = this.getAttribute("data-target");
+                toggleFAQ(answerId, this);
+            }
+        });
+    }
+
+    // --- GALLERY SETUP ---
+    var galleryItems = document.querySelectorAll(".gallery-item");
+    for (var i = 0; i < galleryItems.length; i++) {
+        galleryItems[i].addEventListener("click", function() {
+            var title = this.getAttribute("data-title");
+            var desc = this.getAttribute("data-description");
+            openGallery(title, desc);
+        });
+
+        // Allow keyboard activation for gallery items
+        galleryItems[i].addEventListener("keydown", function(event) {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                var title = this.getAttribute("data-title");
+                var desc = this.getAttribute("data-description");
+                openGallery(title, desc);
+            }
+        });
+    }
+
+    // --- MODAL CLOSE BUTTON ---
+    var closeBtn = document.querySelector(".close");
+    if (closeBtn) {
+        closeBtn.addEventListener("click", function() {
+            closeGallery();
+        });
+    }
+
+    // Close modal when clicking outside of it
+    var modal = document.getElementById("gallery-modal");
+    if (modal) {
+        modal.addEventListener("click", function(event) {
+            if (event.target === modal) {
+                closeGallery();
+            }
+        });
+    }
+
+    // Close modal with Escape key
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+            closeGallery();
+        }
+    });
+
+    // --- DYNAMIC PAGE GREETING ---
+    var introSection = document.querySelector(".intro h2");
+    if (introSection) {
+        var hour = new Date().getHours();
+        var greeting = "Welcome to DevFlow";
+        if (hour < 12) {
+            greeting = "Good Morning! Welcome to DevFlow";
+        } else if (hour < 18) {
+            greeting = "Good Afternoon! Welcome to DevFlow";
+        } else {
+            greeting = "Good Evening! Welcome to DevFlow";
+        }
+        introSection.textContent = greeting;
+    }
+
+    // --- DYNAMIC YEAR IN FOOTER ---
+    var footerYear = document.querySelector(".footer p");
+    if (footerYear) {
+        var currentYear = new Date().getFullYear();
+        footerYear.innerHTML = "&copy; " + currentYear + " DevFlow. All rights reserved.";
+    }
+
+});
+
+// Form validation function
 function validateForm() {
-    var name = document.getElementById("name").value;
-    var email = document.getElementById("email").value;
-    var subject = document.getElementById("subject").value;
-    var message = document.getElementById("message").value;
-    
+    var nameField = document.getElementById("name");
+    var emailField = document.getElementById("email");
+    var subjectField = document.getElementById("subject");
+    var messageField = document.getElementById("message");
+
+    // Clear old errors first
     clearErrors();
-    
+
     var isValid = true;
-    
-    if (name == "") {
-        showError("name", "Name is required");
+
+    // Check name
+    if (nameField.value.trim() === "") {
+        showError(nameField, "Name is required");
         isValid = false;
     }
-    
-    if (email == "") {
-        showError("email", "Email is required");
+
+    // Check email
+    if (emailField.value.trim() === "") {
+        showError(emailField, "Email is required");
         isValid = false;
-    } else if (!isValidEmail(email)) {
-        showError("email", "Please enter a valid email");
-        isValid = false;
-    }
-    
-    if (subject == "") {
-        showError("subject", "Subject is required");
+    } else if (!isValidEmail(emailField.value.trim())) {
+        showError(emailField, "Please enter a valid email address");
         isValid = false;
     }
-    
-    if (message == "") {
-        showError("message", "Message is required");
-        isValid = false;
-    } else if (message.length < 10) {
-        showError("message", "Message must be at least 10 characters");
+
+    // Check subject
+    if (subjectField.value.trim() === "") {
+        showError(subjectField, "Subject is required");
         isValid = false;
     }
-    
+
+    // Check message
+    if (messageField.value.trim() === "") {
+        showError(messageField, "Message is required");
+        isValid = false;
+    } else if (messageField.value.trim().length < 10) {
+        showError(messageField, "Message must be at least 10 characters");
+        isValid = false;
+    }
+
+    // If everything passes, show success
     if (isValid) {
-        alert("Thank you! Your message has been sent.");
-        document.getElementById("contact-form").reset();
+        var form = document.getElementById("contact-form");
+        var successMsg = document.createElement("p");
+        successMsg.id = "success-msg";
+        successMsg.textContent = "Thank you! Your message has been sent successfully.";
+        successMsg.style.color = "green";
+        successMsg.style.fontWeight = "bold";
+        successMsg.style.marginTop = "15px";
+        form.parentNode.insertBefore(successMsg, form.nextSibling);
+
+        form.reset();
+
+        // Remove success message after 4 seconds
+        setTimeout(function() {
+            var msg = document.getElementById("success-msg");
+            if (msg) {
+                msg.remove();
+            }
+        }, 4000);
     }
-    
-    return false;
 }
 
+// Check if email format is valid
 function isValidEmail(email) {
-    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailPattern.test(email);
+    var pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return pattern.test(email);
 }
 
-function showError(fieldId, message) {
-    var field = document.getElementById(fieldId);
-    var error = document.createElement("p");
-    error.className = "error-msg";
-    error.textContent = message;
-    field.parentNode.appendChild(error);
+// Show error message below a field
+function showError(field, message) {
+    var errorP = document.createElement("p");
+    errorP.className = "error-msg";
+    errorP.textContent = message;
+    field.parentNode.appendChild(errorP);
     field.style.borderColor = "red";
+    field.setAttribute("aria-invalid", "true");
 }
 
+// Clear all error messages from the form
 function clearErrors() {
-    var errors = document.querySelectorAll(".error-msg");
-    for (var i = 0; i < errors.length; i++) {
-        errors[i].remove();
+    var oldErrors = document.querySelectorAll(".error-msg");
+    for (var i = 0; i < oldErrors.length; i++) {
+        oldErrors[i].remove();
     }
-    
-    var inputs = document.querySelectorAll("input, textarea");
-    for (var i = 0; i < inputs.length; i++) {
-        inputs[i].style.borderColor = "";
+
+    var fields = document.querySelectorAll("#contact-form input, #contact-form textarea");
+    for (var i = 0; i < fields.length; i++) {
+        fields[i].style.borderColor = "";
+        fields[i].removeAttribute("aria-invalid");
+    }
+
+    // Remove old success message if there is one
+    var oldSuccess = document.getElementById("success-msg");
+    if (oldSuccess) {
+        oldSuccess.remove();
     }
 }
 
-// Gallery
-function openGallery(title, content) {
+// Open the gallery modal and display info
+function openGallery(title, description) {
     var modal = document.getElementById("gallery-modal");
     var modalTitle = document.getElementById("modal-title");
-    var modalContent = document.getElementById("modal-content");
-    
-    modalTitle.textContent = title;
-    modalContent.textContent = content;
-    modal.style.display = "block";
-}
+    var modalDesc = document.getElementById("modal-description");
 
-function closeGallery() {
-    var modal = document.getElementById("gallery-modal");
-    modal.style.display = "none";
-}
+    if (modal && modalTitle && modalDesc) {
+        modalTitle.textContent = title;
+        modalDesc.textContent = description;
+        modal.style.display = "block";
+        modal.setAttribute("aria-hidden", "false");
 
-window.onclick = function(event) {
-    var modal = document.getElementById("gallery-modal");
-    if (modal && event.target == modal) {
-        modal.style.display = "none";
+        // Move focus to the close button for accessibility
+        var closeBtn = document.querySelector(".close");
+        if (closeBtn) {
+            closeBtn.focus();
+        }
     }
 }
 
-// FAQ
-function toggleFAQ(faqId) {
-    var faqAnswer = document.getElementById(faqId);
-    
+// Close the gallery modal
+function closeGallery() {
+    var modal = document.getElementById("gallery-modal");
+    if (modal) {
+        modal.style.display = "none";
+        modal.setAttribute("aria-hidden", "true");
+    }
+}
+
+// Toggle FAQ answer visibility
+function toggleFAQ(faqId, button) {
+    var targetAnswer = document.getElementById(faqId);
+    if (!targetAnswer) return;
+
     var allAnswers = document.querySelectorAll(".faq-answer");
+    var allButtons = document.querySelectorAll(".faq-question");
+
+    // Close all other answers
     for (var i = 0; i < allAnswers.length; i++) {
         if (allAnswers[i].id !== faqId) {
             allAnswers[i].style.display = "none";
+            allButtons[i].setAttribute("aria-expanded", "false");
         }
     }
-    
-    if (faqAnswer.style.display === "none" || faqAnswer.style.display === "") {
-        faqAnswer.style.display = "block";
+
+    // Toggle the clicked one
+    if (targetAnswer.style.display === "block") {
+        targetAnswer.style.display = "none";
+        button.setAttribute("aria-expanded", "false");
     } else {
-        faqAnswer.style.display = "none";
+        targetAnswer.style.display = "block";
+        button.setAttribute("aria-expanded", "true");
     }
 }
